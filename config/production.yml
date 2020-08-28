@@ -1,0 +1,6 @@
+server: 
+  origin: http://nestjs-task-management-frontend-game.s3-website-ap-southeast-1.amazonaws.com
+  
+
+db:   
+  synchronize: flase
