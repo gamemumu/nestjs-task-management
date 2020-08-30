@@ -1,3 +1,7 @@
+Proceeding with NestJS and Back-end Development.
+Finishing the NestJS Zero to Hero course.
+Here is a list of subjects might be interested in, to help me enrich mine NestJS and Back-end Development skills even more.
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
