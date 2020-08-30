@@ -3,4 +3,4 @@ server:
   
 
 db:   
-  synchronize: flase
+  synchronize: false
