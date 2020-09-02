@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
+import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
@@ -14,10 +15,12 @@ export class AuthService {
         private jwtService: JwtService,
     ){}
     
-    async signUp(authCredentialsDto :AuthCredentialsDto){
+    //สามารถสมัครสมาชิกได้
+    async signUp(authCredentialsDto :AuthCredentialsDto){ 
         return this.userRepository.signUp(authCredentialsDto);
     }
 
+    //มีระบบ Login
     async signIn(authCredentialsDto :AuthCredentialsDto): Promise<{accessToken: string}>{
         const username = await this.userRepository.validateuserPassword(authCredentialsDto);
         if(!username){
@@ -29,5 +32,15 @@ export class AuthService {
         this.logger.debug(`Generated JWT Token with payload ${JSON.stringify(payload)}`);
         return { accessToken };
 
+    }
+
+    //เรียกดู Profile ของตัวเอง
+    async getProfile(user: User): Promise<User>{
+        const username = await this.userRepository.getOwnProfile(user);
+        if(!username){
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        return username;
     }
 }

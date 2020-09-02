@@ -4,6 +4,7 @@ import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { ConflictException, InternalServerErrorException } from "@nestjs/common";
 import * as bcrypt from 'bcryptjs';
 import e from "express";
+import { Order } from '../order/order.entity';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User>{
@@ -25,6 +26,18 @@ export class UserRepository extends Repository<User>{
             }
         }
     }
+
+    async getOwnProfile(authCredentialsDto: AuthCredentialsDto): Promise<User>{
+        const {username, password} = authCredentialsDto;
+        const user = await this.findOne({username});
+
+        if(user){
+            return user;
+        }else{
+            return null;
+        }
+    }
+
 
     async validateuserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string>{
         const {username, password} = authCredentialsDto;
